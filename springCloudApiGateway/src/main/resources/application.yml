@@ -1,0 +1,28 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/      
+
+server:
+  port: 1982
+  
+  
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+    
+  cloud:
+    gateway:
+      routes:
+      - id: MOBILE-SERVICE
+        uri: lb://MOBILE-SERVICE
+        predicates:
+        - Path=/mobile/**
+        
+      - id: STUDENT-SERVICE
+        uri: lb://STUDENT-SERVICE
+        predicates:
+        - Path=/student/**
+          
+  
+  

@@ -1,0 +1,58 @@
+package com.example.springDockerProducerService.service;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
+
+import com.example.springDockerProducerService.dao.EmpDao;
+import com.example.springDockerProducerService.models.Emp;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class EmpService {
+
+	@Autowired
+	private EmpDao empDao;
+	
+	public List<Emp> getallEmps() {
+		return empDao.findAll();
+	}
+	
+	@Transactional
+	public List<Emp> addEmp(Emp emp) {
+		empDao.save(emp);
+		return empDao.findAll();
+	}
+	
+	@Transactional
+	public Emp editEmp(Emp emp) {
+		empDao.updateEmp(emp.getName(), emp.getAge(), emp.getId());
+		Optional<Emp> empUpdate = empDao.findById(emp.getId());
+		Emp getEmp = empUpdate.get();
+		return getEmp;
+	}
+
+	@Transactional
+	public Emp partialyUpdateEmp(Integer id, Map<String,Object> fields) {
+		Optional<Emp> empOp = empDao.findById(id);
+		if(empOp.isPresent()) {
+			Emp emp = empOp.get();			
+			fields.forEach((key,value) -> {
+				Field field = ReflectionUtils.findField(getClass(), key);
+				field.setAccessible(true);
+				ReflectionUtils.setField(field, emp, value);
+			});
+			
+			
+		}
+		Optional<Emp> empUpdate = empDao.findById(id);
+		Emp getEmp = empUpdate.get();
+		return getEmp;
+	}
+}

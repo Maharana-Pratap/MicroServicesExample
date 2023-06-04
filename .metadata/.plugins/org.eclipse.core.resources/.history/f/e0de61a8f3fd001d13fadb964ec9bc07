@@ -1,0 +1,12 @@
+spring:
+ application:
+  name: CircutBreaker
+  
+server:
+  port: 1234
+  
+resilience4j:
+ circuitbreaker:
+  instences:
+   service_B:
+  

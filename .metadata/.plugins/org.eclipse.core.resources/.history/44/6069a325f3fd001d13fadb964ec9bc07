@@ -1,0 +1,7 @@
+spring:
+ application:
+  name: CircutBreaker
+  
+server:
+  port: 1234
+  

@@ -1,0 +1,18 @@
+server:
+  port: 1111
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/employee
+    #url: jdbc:mysql://mysqldb:3306/employee
+    username: root
+    password: premraj@1112
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+  application:
+    name: producerService
+  

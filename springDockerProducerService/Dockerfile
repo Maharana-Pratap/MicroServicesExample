@@ -1,0 +1,4 @@
+FROM openjdk:17
+COPY target/springDockerProducerService-0.0.1-SNAPSHOT.jar springDockerProducerService-0.0.1-SNAPSHOT.jar
+EXPOSE 8080
+ENTRYPOINT [ "java","-jar","springDockerProducerService-0.0.1-SNAPSHOT.jar" ]

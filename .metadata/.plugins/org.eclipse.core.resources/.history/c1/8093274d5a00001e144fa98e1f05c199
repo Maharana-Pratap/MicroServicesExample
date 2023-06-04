@@ -1,0 +1,44 @@
+version: "3.8"
+services:  
+  mysqldb:
+   container_name: mysqldb
+   image: mysql:5.7
+   restart: always
+   ports:
+    - 3307:3306
+   environment:
+    MYSQL_DATABASE: employee
+    MYSQL_USER: root
+    MYSQL_PASSWORD: root
+    MYSQL_ROOT_PASSWORD: premraj@1112
+    vloums:
+     -./src/data/mysql
+   #networks:
+     #- bootappnetwork
+  
+  springboot-app:
+   container_name: springboot-restapi-app
+   build: ./
+   depends_on:
+    - mysqldb
+   ports:
+    - 8080:1111
+   restart: always
+   
+#   environment:
+#   # MYSQL_HOST: mysqldb #container_name of mysqldb
+#   # MYSQL_USER: root
+#   #MYSQL_PASSWORD: premraj@1112
+#   # MYSQL_POST: 3306
+#    - spring.datasource.url=jdbc:mysql://localhost:3306/employee?createDatabaseIfNotExist=true
+##    - spring.datasource.username=root
+#    - spring.datasource.password=premraj@1112
+#    - spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+#   networks:
+#     - bootappnetwork
+#     
+#networks:
+# bootappnetwork:
+  
+     
+     
